@@ -4,6 +4,10 @@
   "private": true,
   "proxy": "http://localhost:3001",
   "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/material": "^5.6.1",
+    "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -13,15 +17,21 @@
     "react-scripts": "4.0.1"
   },
   "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^17.0.23",
+    "@types/react": "^18.0.3",
+    "@types/react-dom": "^18.0.0",
     "ava": "3.15.0",
     "nodemon": "2.0.7",
     "npm-run-all": "4.1.5",
-    "supertest": "6.1.2"
+    "supertest": "6.1.2",
+    "typescript": "^3.9.10"
   },
   "scripts": {
     "start": "npm-run-all -l -p start-react start-api",
     "start-react": "react-scripts start",
-    "start-api": "nodemon api/server.js",
+    "start-api": "nodemon api/server.ts",
     "build": "react-scripts build",
     "test": "npm-run-all test-app test-api",
     "test-app": "react-scripts test --watchAll=false",
