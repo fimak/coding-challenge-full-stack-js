@@ -1,5 +1,5 @@
 import axios from './axios';
 
 export const feedsAPI = {
-  get: async (url: string) => await axios.get(url),
+  get: async (url: string, params: any ) => await axios.get(url, { params }),
 };

@@ -22,7 +22,7 @@ export const feedsSlice = createSlice({
       })
       .addCase(getImages.fulfilled, (state, action) => {
         state.status = 'success';
-        state.imageList = action.payload;
+        state.imageList = action.payload.items;
       })
       .addCase(getImages.rejected, (state, action) => {
         state.status = 'error';

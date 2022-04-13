@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import {
   Box,
   Container,
@@ -17,19 +17,27 @@ import { FeedsItem } from './state/feeds/feeds.types';
 
 function App() {
   const dispatch = useAppDispatch()
-  const imageList: FeedsItem[] | undefined = useAppSelector(galleryImageSelector)
-  const status = useAppSelector(statusSelector)
-  const [page, setPage] = useState(1)
-  const [pageLimit, setPageLimit] = useState(10)
-  const isFetching = status === 'pending'
+  const [tags, setTags] = useState('');
+  const imageList: FeedsItem[] | undefined = useAppSelector(galleryImageSelector);
+  const status = useAppSelector(statusSelector);
+  const [page, setPage] = useState(1);
+  const isFetching = status === 'pending';
+  const isError = status === 'error';
 
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTags(e.target.value);
+  }
+  const handleSubmit = (e: FormEvent<HTMLButtonElement | HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(getImages(tags));
+  }
   const handlePageChange = (e: ChangeEvent<unknown>, value: number) => {
-    setPage(value)
+    setPage(value);
   }
 
   useEffect(() => {
-    dispatch(getImages({ limit: pageLimit, page }))
-  }, [dispatch, page, pageLimit])
+    dispatch(getImages(''))
+  }, [dispatch])
 
   return (
     <>
@@ -40,25 +48,28 @@ function App() {
           <Paper
             component="form"
             sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+            onSubmit={handleSubmit}
           >
             <InputBase
               sx={{ ml: 1, flex: 1 }}
               placeholder="Search Images"
               inputProps={{ 'aria-label': 'search images' }}
+              value={tags}
+              onChange={handleInputChange}
             />
             <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-            <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+            <IconButton type="submit" sx={{ p: '10px' }} aria-label="search" onSubmit={handleSubmit}>
               <SearchIcon />
             </IconButton>
           </Paper>
 
-          <ImageGallery images={imageList} loading={isFetching} />
+          {isError ? 'Some Error' : <ImageGallery images={imageList} loading={isFetching} />}
 
           <Stack spacing={2}>
             <Pagination
               color="primary"
               page={page}
-              count={pageLimit}
+              count={10}
               onChange={handlePageChange}
             />
           </Stack>

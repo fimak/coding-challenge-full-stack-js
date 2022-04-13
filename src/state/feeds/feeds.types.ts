@@ -1,21 +1,24 @@
 export interface GetFeedsParam {
-  page: number,
-  limit: number
+  tags: string;
 }
 
 export interface FeedsItem {
-  albumId: number,
-  id: number,
-  title: string,
-  url: string,
-  thumbnailUrl: string
+  title: string;
+  link: string;
+  media: { m: string };
+  date_taken: string;
+  description: string;
+  published: string;
+  author: string;
+  author_id: string;
+  tags: string;
 }
 
 export interface FeedsState {
-  imageList?: [FeedsItem],
-  page: number,
-  perPage: number,
-  status: 'pending' | 'success' | 'error' | undefined,
-  sortBy: string | undefined,
-  filterBy: string | undefined
+  imageList?: [FeedsItem];
+  page: number;
+  perPage: number;
+  status: 'pending' | 'success' | 'error' | undefined;
+  sortBy: string | undefined;
+  filterBy: string | undefined;
 }

@@ -1,5 +1,7 @@
+import App from './app';
+
 const port = parseInt(process.env.PORT || '3001', 10);
 
-require('./app').listen(port, () => {
+App.listen(port, () => {
   console.log(`API listening at http://localhost:${port}`);
 });
